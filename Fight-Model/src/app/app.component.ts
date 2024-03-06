@@ -41,7 +41,7 @@ export class AppComponent {
   showAttack: boolean = false;
   fightIsActive: boolean = true;
 
-  attackOpponent($event: number) {
+  attackOpponent($event: any) {
     this.showAttack = true;
     if (this.fightIsActive && this.opponentHealth > 0) {
       this.attackValue = $event;
