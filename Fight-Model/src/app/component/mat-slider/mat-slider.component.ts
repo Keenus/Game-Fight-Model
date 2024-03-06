@@ -78,6 +78,5 @@ export class MatSliderComponent {
     setTimeout(() => {
       this.isButtonDisabled = false;
     }, 2000);
-    console.log(this.isButtonDisabled)
   }
 }

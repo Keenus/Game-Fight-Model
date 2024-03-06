@@ -77,8 +77,7 @@ export class AppComponent {
   }
 
   setOpponentAttack() {
-    let attackValue = Math.floor(Math.random() * 50);
-    console.log(attackValue);
+    let attackValue = Math.floor(Math.random() * 49) + 1;
     if (this.userHealth - attackValue <= 0) {
       this.fightIsActive = false;
       this.userHealth = 0;
