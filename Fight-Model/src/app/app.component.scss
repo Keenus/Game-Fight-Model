@@ -18,11 +18,12 @@
     overflow: hidden;
   }
   &__user-stats {
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     height: 100%;
     padding: 10px;
-    text-align: center;
     .picture {
       width: 300px;
       height: 300px;
@@ -150,16 +151,33 @@
 
 @media (max-width: 1200px) {
   .game-container {
-    &__items{
-      flex-flow:column wrap;
-      height: 100px;
-    }
+    background: transparent;
     .center {
       width: 100%;
       order: 3;
     }
-    .left{
-      width: 50%;
+    &__items {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 0;
+      gap: 0;
+      justify-content: space-around;
+    }
+    &__user-stats {
+      justify-content: space-between;
+      align-items: center;
+      height: 100%;
+      padding: 10px;
+      text-align: center;
+      .picture {
+        width: 200px;
+        height: 200px;
+      }
+    }
+    &__game-history {
+      height: unset;
+      min-height: 200px;
     }
   }
 

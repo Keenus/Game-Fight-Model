@@ -1,9 +1,9 @@
 <div class="game-container">
   <div class="game-container__items">
     <div class="game-container__user-stats left">
-        <div class="picture">
-          <img src="https://www.w3schools.com/howto/img_avatar.png" alt="user-avatar">
-        </div>
+      <div class="picture">
+        <img src="https://www.w3schools.com/howto/img_avatar.png" alt="user-avatar">
+      </div>
       <h2 class="username">User</h2>
       <h3 class="health"> Punkty zdrowia {{userHealth}} / {{maxHealth}}</h3>
     </div>
@@ -12,30 +12,30 @@
       <p class="game-container__game-attack-dialog" [ngClass] = "{'visible' : showAttack}">Zadałeś {{attackValue}} obrażeń</p>
       <div class="game-container__game-history">
         <h2 *ngIf="fightHistory.length > 0">Historia ataków</h2>
-          <div #historyList class="game-history__list">
-            <div *ngFor="let attack of fightHistory" [ngClass]="{'red-bg' : attack.attackerID === 1}">
-              <small [textContent]="attack.attackerID === 0 ? 'Atak użytkownika' : 'Atak przeciwnika'"></small>
-              <p>
+        <div #historyList class="game-history__list">
+          <div *ngFor="let attack of fightHistory" [ngClass]="{'red-bg' : attack.attackerID === 1}">
+            <small [textContent]="attack.attackerID === 0 ? 'Atak użytkownika' : 'Atak przeciwnika'"></small>
+            <p>
                 <span>
                   <i class="material-icons">
                     <span class="material-icons" [textContent]="attack.attackerID === 0 ? '&#xe5c8;' : '&#xe5c4;'"></span>
                   </i>
                   {{attack.attackValue}}
                 </span>
-                <span>
+              <span>
                   <span class="material-icons">&#xe87c;</span>
-                  {{attack.leaveHealth}}
+                {{attack.leaveHealth}}
                 </span>
-              </p>
-            </div>
+            </p>
           </div>
+        </div>
       </div>
     </div>
     <div class="game-container__user-stats right">
       <div class="picture">
         <img src="https://www.w3schools.com/howto/img_avatar.png" alt="user-avatar">
       </div>
-      <h2 class="username">User</h2>
+      <h2 class="username">Enemy</h2>
       <h3 class="health"> Punkty zdrowia {{opponentHealth}} / {{maxHealth}}</h3>
     </div>
     <div class="game-container__result" *ngIf="!fightIsActive">
