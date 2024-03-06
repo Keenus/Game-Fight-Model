@@ -1,0 +1,18 @@
+<div class="main-container">
+  <button class="main-container__start-button" color="primary" mat-icon-button (click)="makeAttack()" [disabled]="isButtonDisabled">
+    <i class="material-icons">
+      <span class="material-icons">&#xef55;</span>
+    </i>
+    <p [textContent]="gameStarted ? 'Atakuj' : 'Start'"></p>
+  </button>
+  <div class="main-container__slider-container">
+    <mat-slider
+    class="custom-slider"
+    [disabled]="false"
+    [max]="max"
+    [min]="min"
+    [step]="1">
+    <input matSliderThumb [(ngModel)]="value" #value1>
+  </mat-slider>
+  </div>
+</div>
