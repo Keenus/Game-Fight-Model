@@ -1,4 +1,4 @@
-It's a fight model for my browser game project. I will add this game for as public repo soon.
+It's a fight model for my browser game project. I will add this game as public repo soon.
 
 Take a look on this app on: https://keenus.github.io/Game-Fight-Model/
 
