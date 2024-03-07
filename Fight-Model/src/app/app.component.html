@@ -5,7 +5,7 @@
         <img src="https://www.w3schools.com/howto/img_avatar.png" alt="user-avatar">
       </div>
       <h2 class="username">User</h2>
-      <h3 class="health"> Health Potions {{userHealth}} / {{maxHealth}}</h3>
+      <h3 class="health"> Health Points {{userHealth}} / {{userStats.maxHealth}}</h3>
     </div>
     <div class="game-container__game center">
       <app-mat-slider-example (attackValue)="attackOpponent($event)"></app-mat-slider-example>
@@ -36,7 +36,7 @@
         <img src="https://www.w3schools.com/howto/img_avatar.png" alt="user-avatar">
       </div>
       <h2 class="username">Enemy</h2>
-      <h3 class="health"> Health Potions {{opponentHealth}} / {{maxHealth}}</h3>
+      <h3 class="health"> Health Points {{opponentHealth}} / {{enemyStats.maxHealth}}</h3>
     </div>
     <div class="game-container__result" *ngIf="!fightIsActive">
       <h2 [textContent]="userWin ? 'You win!' : 'You lost'"></h2>

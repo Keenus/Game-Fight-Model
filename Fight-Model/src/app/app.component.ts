@@ -1,5 +1,7 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {AttackHistoryItem} from "./interfaces/AttackHistoryItem";
+import {EnemyStatsModel} from "./models/enemyStats.model";
+import {UserStatsModel} from "./models/userStats.model";
 
 @Component({
   selector: 'app-root',
@@ -32,15 +34,22 @@ export class AppComponent {
     this.mutationObserver.disconnect(); // Stop observing when the component is destroyed
   }
 
-  attackValue: number = 0;
-  userHealth: number = 200;
-  opponentHealth: number = 200;
-  maxHealth: number = 200;
+  userStats: UserStatsModel = new UserStatsModel();
+  enemyStats: EnemyStatsModel = new EnemyStatsModel();
   fightHistory: AttackHistoryItem[] = [];
+
+  attackValue: number = 0;
+  userHealth: number = 0;
+  opponentHealth: number = 0;
 
   showAttack: boolean = false;
   fightIsActive: boolean = true;
   userWin: boolean = false;
+
+ ngOnInit() {
+    this.userHealth = this.userStats.maxHealth;
+    this.opponentHealth = this.enemyStats.maxHealth;
+ }
 
   attackOpponent($event: any) {
     this.showAttack = true;
@@ -54,6 +63,12 @@ export class AppComponent {
         this.userWin = true;
         this.fightIsActive = false;
         this.opponentHealth = 0;
+        this.fightHistory.push({
+          attackerID: 0,
+          attackValue: this.attackValue,
+          leaveHealth: this.opponentHealth
+        });
+        return;
       }
       setTimeout(() => {
         this.opponentHealth -= this.attackValue;
@@ -87,6 +102,7 @@ export class AppComponent {
       this.userWin = false;
       this.fightIsActive = false;
       this.userHealth = 0;
+      return;
     }
     setTimeout(() => {
       this.userHealth -= attackValue;
