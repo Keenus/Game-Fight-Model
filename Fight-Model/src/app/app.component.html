@@ -5,16 +5,16 @@
         <img src="https://www.w3schools.com/howto/img_avatar.png" alt="user-avatar">
       </div>
       <h2 class="username">User</h2>
-      <h3 class="health"> Punkty zdrowia {{userHealth}} / {{maxHealth}}</h3>
+      <h3 class="health"> Health Potions {{userHealth}} / {{maxHealth}}</h3>
     </div>
     <div class="game-container__game center">
       <app-mat-slider-example (attackValue)="attackOpponent($event)"></app-mat-slider-example>
-      <p class="game-container__game-attack-dialog" [ngClass] = "{'visible' : showAttack}">Zadałeś {{attackValue}} obrażeń</p>
+      <p class="game-container__game-attack-dialog" [ngClass] = "{'visible' : showAttack}">You hit enemy for {{attackValue}} damage</p>
       <div class="game-container__game-history">
-        <h2 *ngIf="fightHistory.length > 0">Historia ataków</h2>
+        <h2 *ngIf="fightHistory.length > 0">Fight history</h2>
         <div #historyList class="game-history__list">
           <div *ngFor="let attack of fightHistory" [ngClass]="{'red-bg' : attack.attackerID === 1}">
-            <small [textContent]="attack.attackerID === 0 ? 'Atak użytkownika' : 'Atak przeciwnika'"></small>
+            <small [textContent]="attack.attackerID === 0 ? 'User attack' : 'Enemy attack'"></small>
             <p>
                 <span>
                   <i class="material-icons">
@@ -36,15 +36,15 @@
         <img src="https://www.w3schools.com/howto/img_avatar.png" alt="user-avatar">
       </div>
       <h2 class="username">Enemy</h2>
-      <h3 class="health"> Punkty zdrowia {{opponentHealth}} / {{maxHealth}}</h3>
+      <h3 class="health"> Health Potions {{opponentHealth}} / {{maxHealth}}</h3>
     </div>
     <div class="game-container__result" *ngIf="!fightIsActive">
-      <h2>Wygrałeś!</h2>
+      <h2 [textContent]="userWin ? 'You win!' : 'You lost'"></h2>
       <button class="game-container__restart-button" color="accent" mat-raised-button (click)="playAgain()">
         <i class="material-icons">
           <span class="material-icons">&#xef55;</span>
         </i>
-        <p>Zagraj ponownie</p>
+        <p>Play again</p>
       </button>
     </div>
   </div>

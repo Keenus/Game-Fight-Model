@@ -40,16 +40,18 @@ export class AppComponent {
 
   showAttack: boolean = false;
   fightIsActive: boolean = true;
+  userWin: boolean = false;
 
   attackOpponent($event: any) {
     this.showAttack = true;
-    if (this.fightIsActive && this.opponentHealth > 0) {
+    if (this.fightIsActive) {
       this.attackValue = $event;
       if (this.attackValue > 50) {
         this.attackValue -= 100;
         this.attackValue = Math.abs(this.attackValue);
       }
       if (this.opponentHealth - this.attackValue <= 0) {
+        this.userWin = true;
         this.fightIsActive = false;
         this.opponentHealth = 0;
       }
@@ -77,8 +79,12 @@ export class AppComponent {
   }
 
   setOpponentAttack() {
+    if (!this.fightIsActive) {
+      return;
+    }
     let attackValue = Math.floor(Math.random() * 49) + 1;
     if (this.userHealth - attackValue <= 0) {
+      this.userWin = false;
       this.fightIsActive = false;
       this.userHealth = 0;
     }
