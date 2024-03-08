@@ -1,19 +1,15 @@
 <div class="game-container">
   <div class="game-container__items">
     <div class="game-container__user-stats left">
-      <div class="picture">
-        <img src="https://www.w3schools.com/howto/img_avatar.png" alt="user-avatar">
-      </div>
-      <h2 class="username">User</h2>
-      <h3 class="health"> Health Points {{userHealth}} / {{userStats.maxHealth}}</h3>
+      <app-user-stats [fighter]="user" [health]="userHealth"></app-user-stats>
     </div>
     <div class="game-container__game center">
-      <app-mat-slider-example (attackValue)="attackOpponent($event)"></app-mat-slider-example>
-      <p class="game-container__game-attack-dialog" [ngClass] = "{'visible' : showAttack}">You hit enemy for {{attackValue}} damage</p>
+      <app-mat-slider-example class="hidden" [ngClass]="{'visible' : userAttackLocked}" (attackValue)="attackOpponent(0, $event , opponentHealth , 1)"></app-mat-slider-example>
+      <p class="game-container__game-attack-dialog" [ngClass] = "{'visible' : showAttack}">You hit enemy for {{ singleAttackValue}} damage</p>
       <div class="game-container__game-history">
-        <h2 *ngIf="fightHistory.length > 0">Fight history</h2>
+        <h2 *ngIf="fightHistory.attackHistory.length > 0">Fight history</h2>
         <div #historyList class="game-history__list">
-          <div *ngFor="let attack of fightHistory" [ngClass]="{'red-bg' : attack.attackerID === 1}">
+          <div *ngFor="let attack of fightHistory.attackHistory" [ngClass]="{'red-bg' : attack.attackerID === 1}">
             <small [textContent]="attack.attackerID === 0 ? 'User attack' : 'Enemy attack'"></small>
             <p>
                 <span>
@@ -32,11 +28,7 @@
       </div>
     </div>
     <div class="game-container__user-stats right">
-      <div class="picture">
-        <img src="https://www.w3schools.com/howto/img_avatar.png" alt="user-avatar">
-      </div>
-      <h2 class="username">Enemy</h2>
-      <h3 class="health"> Health Points {{opponentHealth}} / {{enemyStats.maxHealth}}</h3>
+      <app-user-stats [fighter]="opponent" [health]="opponentHealth"></app-user-stats>
     </div>
     <div class="game-container__result" *ngIf="!fightIsActive">
       <h2 [textContent]="userWin ? 'You win!' : 'You lost'"></h2>

@@ -1,7 +1,6 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {AttackHistoryItem} from "./interfaces/AttackHistoryItem";
-import {EnemyStatsModel} from "./models/enemyStats.model";
 import {UserStatsModel} from "./models/userStats.model";
+import {FightModel} from "./models/fight.model";
 
 @Component({
   selector: 'app-root',
@@ -34,55 +33,70 @@ export class AppComponent {
     this.mutationObserver.disconnect(); // Stop observing when the component is destroyed
   }
 
-  userStats: UserStatsModel = new UserStatsModel();
-  enemyStats: EnemyStatsModel = new EnemyStatsModel();
-  fightHistory: AttackHistoryItem[] = [];
+  fightHistory: FightModel = new FightModel();
 
-  attackValue: number = 0;
-  userHealth: number = 0;
-  opponentHealth: number = 0;
+  user: UserStatsModel = this.fightHistory.fighters[0];
+  opponent: UserStatsModel = this.fightHistory.fighters[1];
+
+  userHealth: number = this.user.maxHealth;
+  opponentHealth: number = this.opponent.maxHealth;
+  singleAttackValue: number = 0;
 
   showAttack: boolean = false;
   fightIsActive: boolean = true;
   userWin: boolean = false;
+  userAttackLocked: boolean = false;
 
- ngOnInit() {
-    this.userHealth = this.userStats.maxHealth;
-    this.opponentHealth = this.enemyStats.maxHealth;
- }
+  ngOnInit() {
+    this.randomizeFirstAttacker();
+  }
 
-  attackOpponent($event: any) {
-    this.showAttack = true;
+  randomizeFirstAttacker() {
+    this.fightHistory.activeFighterID = Math.floor(Math.random() * 2);
+    console.log(this.fightHistory.activeFighterID)
+  }
+
+  startFight() {
+    this.fightIsActive = true;
+    this.randomizeFirstAttacker();
+    if(this.fightHistory.activeFighterID === 1) {
+      this.makeOpponentAttack();
+    }
+    else {
+      this.unlockUserAttack();
+      console.log('user attack unlocked')
+    }
+  }
+
+  lockUserAttack() {
+     this.fightHistory.activeFighterID = 1;
+     this.userAttackLocked = true;
+  }
+
+  unlockUserAttack() {
+    this.fightHistory.activeFighterID = 0;
+    this.userAttackLocked = false;
+  }
+
+  attackOpponent(attackerId: number, $event: number , enemyHealth: number ,enemyId: number) {
+    let attack = $event;
     if (this.fightIsActive) {
-      this.attackValue = $event;
-      if (this.attackValue > 50) {
-        this.attackValue -= 100;
-        this.attackValue = Math.abs(this.attackValue);
+      if (attack > 50) {
+        attack = this.getAttackValue(attack -= 100);
       }
-      if (this.opponentHealth - this.attackValue <= 0) {
-        this.userWin = true;
-        this.fightIsActive = false;
-        this.opponentHealth = 0;
-        this.fightHistory.push({
-          attackerID: 0,
-          attackValue: this.attackValue,
-          leaveHealth: this.opponentHealth
-        });
+      if (enemyHealth - attack <= 0) {
+        this.setWinner(attackerId);
         return;
       }
-      setTimeout(() => {
-        this.opponentHealth -= this.attackValue;
-        this.fightHistory.push({
-          attackerID: 0,
-          attackValue: this.attackValue,
-          leaveHealth: this.opponentHealth
-        });
-      }, 500);
-      setTimeout(() => {
-        this.showAttack = false;
-        this.setOpponentAttack();
-      }, 2000);
+      this.makeAttack(attackerId,attack,enemyHealth,enemyId);
+      this.singleAttackValue = attack;
+      this.showAttack = true;
+      this.lockUserAttack();
     }
+  }
+
+  getAttackValue(attack: number) {
+    return Math.abs(attack);
   }
 
 
@@ -90,30 +104,61 @@ export class AppComponent {
     this.fightIsActive = true;
     this.opponentHealth = 200;
     this.userHealth = 200;
-    this.fightHistory = [];
+    this.fightHistory.attackHistory = [];
   }
 
-  setOpponentAttack() {
-    if (!this.fightIsActive) {
-      return;
+  makeOpponentAttack() {
+    let attack = this.getAttackValue(Math.floor(Math.random() * 100));
+    if (this.fightIsActive) {
+      if (this.userHealth - attack <= 0) {
+        this.setWinner(0);
+        return;
+      }
+      this.makeAttack(1,attack,this.userHealth, 0);
     }
-    let attackValue = Math.floor(Math.random() * 49) + 1;
-    if (this.userHealth - attackValue <= 0) {
-      this.userWin = false;
-      this.fightIsActive = false;
-      this.userHealth = 0;
-      return;
-    }
+    this.singleAttackValue = attack;
+    this.showAttack = true;
+    this.unlockUserAttack();
+  }
+
+  private setWinner(number: number) {
+    this.fightHistory.winnerID = number;
+    this.turnOffFight();
+  }
+
+  private turnOffFight() {
+    this.fightIsActive = false;
+  }
+
+  private makeAttack(attackerId: number, attack: number ,enemyHealth: number , enemyId: number) {
+
     setTimeout(() => {
-      this.userHealth -= attackValue;
-      this.fightHistory.push({
-        attackerID: 1,
-        attackValue: attackValue,
-        leaveHealth: this.userHealth
+      enemyHealth -= attack;
+      this.fightHistory.attackHistory.push({
+        attackerID: attackerId,
+        attackValue: attack,
+        leaveHealth: enemyHealth
       });
+      this.updateStats(enemyId, enemyHealth);
     }, 500);
     setTimeout(() => {
       this.showAttack = false;
     }, 2000);
+
   }
+
+  private updateStats(opponentID: number, health: number) {
+    if (opponentID && health) {
+      if (opponentID === 0) {
+        this.userHealth = health;
+        return;
+      }
+      if (opponentID === 1) {
+        this.opponentHealth = health;
+        return;
+      }
+    }
+  }
+
+
 }

@@ -10,12 +10,14 @@ import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {MatIconModule} from "@angular/material/icon";
 import { PlayerInfoComponent } from './component/player-info/player-info.component';
+import { UserStatsComponent } from './component/user-stats/user-stats.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MatSliderComponent,
     PlayerInfoComponent,
+    UserStatsComponent,
   ],
   imports: [
     BrowserModule,
