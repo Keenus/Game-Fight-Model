@@ -9,12 +9,12 @@ export class FightModel {
     {
       id: 0,
       name: 'Player',
-      maxHealth: 200
+      maxHealth: 100
     },
     {
       id: 1,
       name: 'Opponent',
-      maxHealth: 200
+      maxHealth: 100
     }
   ];
 }

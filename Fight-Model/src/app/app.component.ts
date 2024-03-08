@@ -44,27 +44,25 @@ export class AppComponent {
 
   showAttack: boolean = false;
   fightIsActive: boolean = true;
-  userWin: boolean = false;
   userAttackLocked: boolean = false;
 
   ngOnInit() {
-    this.randomizeFirstAttacker();
+    this.startFight();
   }
 
   randomizeFirstAttacker() {
     this.fightHistory.activeFighterID = Math.floor(Math.random() * 2);
-    console.log(this.fightHistory.activeFighterID)
   }
 
   startFight() {
+    this.reset()
     this.fightIsActive = true;
     this.randomizeFirstAttacker();
-    if(this.fightHistory.activeFighterID === 1) {
-      this.makeOpponentAttack();
+    if(this.fightHistory.activeFighterID === 0) {
+      this.unlockUserAttack();
     }
     else {
-      this.unlockUserAttack();
-      console.log('user attack unlocked')
+      this.lockUserAttack();
     }
   }
 
@@ -102,19 +100,18 @@ export class AppComponent {
     return Math.abs(attack);
   }
 
-
-  playAgain() {
+  reset() {
     this.fightIsActive = true;
-    this.opponentHealth = 200;
-    this.userHealth = 200;
+    this.opponentHealth = this.opponent.maxHealth;
+    this.userHealth = this.user.maxHealth;
     this.fightHistory.attackHistory = [];
   }
 
   makeOpponentAttack() {
-    let attack = this.getAttackValue(Math.floor(Math.random() * 100));
+    let attack = this.getAttackValue(Math.floor(Math.random() * 50));
     if (this.fightIsActive) {
       if (this.userHealth - attack <= 0) {
-        this.setWinner(0);
+        this.setWinner(1);
         return;
       }
       this.makeAttack(1,attack,this.userHealth, 0);
@@ -134,7 +131,6 @@ export class AppComponent {
   }
 
   private makeAttack(attackerId: number, attack: number ,enemyHealth: number , enemyId: number) {
-
     setTimeout(() => {
       enemyHealth -= attack;
       this.fightHistory.attackHistory.push({
@@ -144,6 +140,7 @@ export class AppComponent {
       });
       this.updateStats(enemyId, enemyHealth);
     }, 500);
+
     setTimeout(() => {
       this.showAttack = false;
     }, 2000);
@@ -151,15 +148,11 @@ export class AppComponent {
   }
 
   private updateStats(opponentID: number, health: number) {
-    if (opponentID && health) {
-      if (opponentID === 0) {
-        this.userHealth = health;
-        return;
-      }
-      if (opponentID === 1) {
-        this.opponentHealth = health;
-        return;
-      }
+    if(opponentID === 0) {
+      this.userHealth = health;
+    }
+    else {
+      this.opponentHealth = health;
     }
   }
 

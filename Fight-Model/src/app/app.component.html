@@ -5,7 +5,6 @@
     </div>
     <div class="game-container__game center">
       <app-mat-slider-example class="hidden" [ngClass]="{'visible' : !userAttackLocked}" (attackValue)="attackOpponent(0, $event , opponentHealth , 1)"></app-mat-slider-example>
-      <p class="game-container__game-attack-dialog" [ngClass] = "{'visible' : showAttack}">You hit enemy for {{ singleAttackValue}} damage</p>
       <div class="game-container__game-history">
         <h2 *ngIf="fightHistory.attackHistory.length > 0">Fight history</h2>
         <div #historyList class="game-history__list">
@@ -31,8 +30,8 @@
       <app-user-stats [fighter]="opponent" [health]="opponentHealth"></app-user-stats>
     </div>
     <div class="game-container__result" *ngIf="!fightIsActive">
-      <h2 [textContent]="userWin ? 'You win!' : 'You lost'"></h2>
-      <button class="game-container__restart-button" color="accent" mat-raised-button (click)="playAgain()">
+      <h2 [textContent]="fightHistory.winnerID === 0 ? 'You win!' : 'You lost'"></h2>
+      <button class="game-container__restart-button" color="accent" mat-raised-button (click)="reset()">
         <i class="material-icons">
           <span class="material-icons">&#xef55;</span>
         </i>

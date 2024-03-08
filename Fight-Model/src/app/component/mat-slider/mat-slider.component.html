@@ -8,6 +8,7 @@
   <div class="main-container__slider-container">
     <mat-slider
     class="custom-slider"
+    [ngClass]="{'visible': gameStarted}"
     [disabled]="true"
     [max]="max"
     [min]="min"

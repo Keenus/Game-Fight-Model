@@ -20,6 +20,11 @@
     .custom-slider {
       width: 100%;
       margin: 0;
+      visibility: hidden;
+    }
+    .visible {
+      visibility: visible;
+      animation: show 1s;
     }
     ::ng-deep .mat-mdc-slider {
       .mdc-slider__track {
@@ -40,9 +45,22 @@
         height: 30px;
         border: none;
       }
-
-
+    }
+    ::ng-deep .mdc-slider--disabled {
+      opacity: 1;
+      .mdc-slider__thumb-knob {
+        background: #7b1fa2;
+      }
     }
 
     }
   }
+
+@keyframes show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
