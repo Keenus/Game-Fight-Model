@@ -55,7 +55,6 @@ export class AppComponent {
   }
 
   startFight() {
-    this.reset()
     this.fightIsActive = true;
     this.randomizeFirstAttacker();
     if(this.fightHistory.activeFighterID === 0) {
@@ -104,7 +103,8 @@ export class AppComponent {
     this.fightIsActive = true;
     this.opponentHealth = this.opponent.maxHealth;
     this.userHealth = this.user.maxHealth;
-    this.fightHistory.attackHistory = [];
+    this.fightHistory = new FightModel();
+    this.startFight();
   }
 
   makeOpponentAttack() {

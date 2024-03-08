@@ -1,4 +1,5 @@
 <div class="game-container">
+  <div class="game-container__blur-background"></div>
   <div class="game-container__items">
     <div class="game-container__user-stats left">
       <app-user-stats [fighter]="user" [health]="userHealth"></app-user-stats>
@@ -29,14 +30,14 @@
     <div class="game-container__user-stats right">
       <app-user-stats [fighter]="opponent" [health]="opponentHealth"></app-user-stats>
     </div>
-    <div class="game-container__result" *ngIf="!fightIsActive">
-      <h2 [textContent]="fightHistory.winnerID === 0 ? 'You win!' : 'You lost'"></h2>
-      <button class="game-container__restart-button" color="accent" mat-raised-button (click)="reset()">
-        <i class="material-icons">
-          <span class="material-icons">&#xef55;</span>
-        </i>
-        <p>Play again</p>
-      </button>
-    </div>
+  </div>
+  <div class="game-container__result" *ngIf="!fightIsActive">
+    <h2 [textContent]="fightHistory.winnerID === 0 ? 'You win!' : 'You lost'"></h2>
+    <button class="game-container__restart-button" color="accent" mat-raised-button (click)="reset()">
+      <i class="material-icons">
+        <span class="material-icons">&#xef55;</span>
+      </i>
+      <p>Play again</p>
+    </button>
   </div>
 </div>
