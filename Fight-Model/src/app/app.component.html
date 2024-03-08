@@ -4,7 +4,7 @@
       <app-user-stats [fighter]="user" [health]="userHealth"></app-user-stats>
     </div>
     <div class="game-container__game center">
-      <app-mat-slider-example class="hidden" [ngClass]="{'visible' : userAttackLocked}" (attackValue)="attackOpponent(0, $event , opponentHealth , 1)"></app-mat-slider-example>
+      <app-mat-slider-example class="hidden" [ngClass]="{'visible' : !userAttackLocked}" (attackValue)="attackOpponent(0, $event , opponentHealth , 1)"></app-mat-slider-example>
       <p class="game-container__game-attack-dialog" [ngClass] = "{'visible' : showAttack}">You hit enemy for {{ singleAttackValue}} damage</p>
       <div class="game-container__game-history">
         <h2 *ngIf="fightHistory.attackHistory.length > 0">Fight history</h2>

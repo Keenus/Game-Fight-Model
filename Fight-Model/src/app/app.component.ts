@@ -71,6 +71,9 @@ export class AppComponent {
   lockUserAttack() {
      this.fightHistory.activeFighterID = 1;
      this.userAttackLocked = true;
+     setTimeout(() => {
+        this.makeOpponentAttack();
+     }, 1000);
   }
 
   unlockUserAttack() {
