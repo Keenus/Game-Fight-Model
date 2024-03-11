@@ -30,7 +30,7 @@
       .mdc-slider__track {
         height: 10px;
         border-radius: 5px;
-        background: linear-gradient(to right, rgba(148, 148, 152, 0.76), rgb(151, 61, 190) 40%, rgb(5, 234, 146) 50% ,rgb(151, 61, 190) 60%, rgba(148, 148, 152, 0.76))
+        background: linear-gradient(to right, rgba(148, 148, 152, 0.76) 30% , rgb(5, 234, 146) 50% , rgba(148, 148, 152, 0.76) 70%)
       }
       .mdc-slider__track--inactive {
         background: transparent;
@@ -49,7 +49,9 @@
     ::ng-deep .mdc-slider--disabled {
       opacity: 1;
       .mdc-slider__thumb-knob {
-        background: #7b1fa2;
+        background: url("../../../assets/sword.png") no-repeat;
+        background-size: cover;
+        width: 30px;
       }
     }
 

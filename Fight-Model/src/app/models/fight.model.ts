@@ -8,13 +8,25 @@ export class FightModel {
   fighters: UserStatsModel[] = [
     {
       id: 0,
+      picture: 'assets/Wizard.jpg',
       name: 'Player',
-      maxHealth: 100
+      maxHealth: 500,
+      stats: {
+        strength: 10,
+        agility: 5,
+        luck: 5
+      }
     },
     {
       id: 1,
+      picture: 'assets/Dwarf.jpg',
       name: 'Opponent',
-      maxHealth: 100
+      maxHealth: 500,
+      stats: {
+        strength: 10,
+        agility: 5,
+        luck: 5
+      }
     }
   ];
 }

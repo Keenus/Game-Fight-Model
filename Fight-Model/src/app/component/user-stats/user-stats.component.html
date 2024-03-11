@@ -1,7 +1,15 @@
 <div class="stats">
-<div class="picture">
-  <img src="https://www.w3schools.com/howto/img_avatar.png" alt="user-avatar">
+<div class="stats__picture" [ngStyle]="{background: 'url(' + fighter.picture + ') no-repeat top /cover'}">
 </div>
-<h2 class="username">{{fighter.name}}</h2>
-<h3 class="health"> Health Points {{health}} / {{fighter.maxHealth}}</h3>
+  <h2 class="stats__username">{{fighter.name}}</h2>
+  <div class="stats__character-stats">
+    <h3 *ngFor="let stat of fighter.stats | keyvalue " [matTooltip]=stat.key.toUpperCase()>
+      <img [src]="'assets/' + stat.key + '.png'" alt="">
+      : {{stat.value}}
+    </h3>
+  </div>
+<div class="stats__health">
+  <h3> {{health}} / {{fighter.maxHealth}}</h3>
+  <mat-progress-bar mode="determinate" color="warn" [value]="healthPercentage"></mat-progress-bar>
+</div>
 </div>

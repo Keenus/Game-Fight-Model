@@ -11,7 +11,14 @@ export class UserStatsComponent {
   @Input() fighter: UserStatsModel = new UserStatsModel();
   @Input() health: number = 0;
 
-  ngOnInit() {
-    console.log(this.health)
+  healthPercentage: number = 0;
+
+  calculateHealthPercentage() {
+    this.healthPercentage = (this.health / this.fighter.maxHealth) * 100;
   }
+
+  ngOnChanges() {
+    this.calculateHealthPercentage();
+  }
+
 }

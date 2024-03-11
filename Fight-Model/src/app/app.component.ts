@@ -84,10 +84,6 @@ export class AppComponent {
       if (attack > 50) {
         attack = this.getAttackValue(attack -= 100);
       }
-      if (enemyHealth - attack <= 0) {
-        this.setWinner(attackerId);
-        return;
-      }
       this.makeAttack(attackerId,attack,enemyHealth,enemyId);
       this.singleAttackValue = attack;
       this.showAttack = true;
@@ -132,7 +128,11 @@ export class AppComponent {
 
   private makeAttack(attackerId: number, attack: number ,enemyHealth: number , enemyId: number) {
     setTimeout(() => {
-      enemyHealth -= attack;
+      if (enemyHealth - attack <= 0) {
+        enemyHealth = 0;
+        this.setWinner(attackerId);
+      } else
+        enemyHealth -= attack;
       this.fightHistory.attackHistory.push({
         attackerID: attackerId,
         attackValue: attack,
