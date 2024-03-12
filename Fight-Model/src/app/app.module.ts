@@ -10,12 +10,16 @@ import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {MatIconModule} from "@angular/material/icon";
 import { PlayerInfoComponent } from './component/player-info/player-info.component';
+import { UserStatsComponent } from './component/user-stats/user-stats.component';
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
     AppComponent,
     MatSliderComponent,
     PlayerInfoComponent,
+    UserStatsComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +28,9 @@ import { PlayerInfoComponent } from './component/player-info/player-info.compone
     MatSliderModule,
     CommonModule,
     FormsModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressBarModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

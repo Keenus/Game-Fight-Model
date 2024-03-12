@@ -1,21 +1,31 @@
 .game-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f5f5f5;
+  height: 100vh;
+  overflow: auto;
   &__items {
+    margin: auto;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    background-color: #fff;
-    border: 1px solid #000;
     padding: 2rem;
+    color: white;
     gap: 3rem;
     position: relative;
-    border-radius: 12px;
     overflow: hidden;
+    aspect-ratio: 16/9;
+    border-radius: 12px;
+    animation: show 2s ease;
+    background: radial-gradient(ellipse at center, #7b1fa255 0%, rgba(0,0,0,0) 60%) no-repeat center bottom;
+  }
+  &__blur-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: brightness(0.5);
+    background: url("/assets/background.jpg") no-repeat center bottom;
+    background-size: cover;
   }
   &__user-stats {
     display: flex;
@@ -24,22 +34,6 @@
     align-items: center;
     height: 100%;
     padding: 10px;
-    .picture {
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      background-color: #000;
-      img {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-      }
-    }
-    .username {
-      font-size: 1.5rem;
-      margin: 0;
-      padding: 1rem 0;
-    }
   }
   &__game {
     padding: 1rem;
@@ -50,11 +44,10 @@
     flex-direction: column;
     gap: 1rem;
     padding: 50px 0 1rem;
-    border-radius: 5px;
     position: relative;
     width: 100%;
     min-width: 250px;
-    height: 200px;
+    height: 250px;
     h2 {
       height:50px;
       position: absolute;
@@ -65,13 +58,12 @@
       padding: 1rem;
       text-align: center;
       font-size: 1rem;
-      color: #7b1fa2;
+      border-bottom: 1px solid #7b1fa2;
       letter-spacing: 1px;
       font-weight: 500;
     }
     .game-history__list {
       overflow-y: scroll;
-      border-radius:5px;
       &::-webkit-scrollbar {
         width: 4px;
         overflow-y: scroll;
@@ -84,8 +76,8 @@
       }
       div {
         box-shadow: 1px 1px 5px 5px #0000003d;
-        background: #f5f5f5;
         padding: .5rem;
+        animation: show .3s;
         &:last-child {
           border-bottom: none;
         }
@@ -97,10 +89,15 @@
             display: flex;
             align-items: center;
             gap: 1px;
+            img {
+              height: 1rem;
+              width: 1rem;
+              margin-right: .2rem;
+            }
           }
         }
       }
-      .red-bg {
+      .primary-bg {
         background: #7b1fa2;
         color: white;
       }
@@ -112,6 +109,10 @@
     background: indianred;
     color: white;
     border-radius: 5px;
+  }
+  .hidden {
+    visibility: hidden;
+    animation: hide 1s;
   }
   .visible {
     visibility: visible;
@@ -154,30 +155,28 @@
     background: transparent;
     .center {
       width: 100%;
+    }
+    &__game {
       order: 3;
     }
     &__items {
       width: 100%;
       background: transparent;
       border: none;
-      padding: 0;
       gap: 0;
       justify-content: space-around;
+      aspect-ratio: unset;
+      flex-wrap: wrap;
     }
     &__user-stats {
       justify-content: space-between;
       align-items: center;
       height: 100%;
-      padding: 10px;
       text-align: center;
-      .picture {
-        width: 200px;
-        height: 200px;
-      }
     }
     &__game-history {
-      height: unset;
       min-height: 200px;
+      min-width: unset;
     }
   }
 

@@ -41,7 +41,7 @@ export class MatSliderComponent {
           if(this.value === this.min) {
             this.action = 'increment';
           }
-   }, 10);
+   }, 5);
   }
 
   stopSlider() {
