@@ -5,8 +5,8 @@
   &__items {
     margin: auto;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     padding: 2rem;
     color: white;
     gap: 3rem;
@@ -14,6 +14,7 @@
     overflow: hidden;
     aspect-ratio: 16/9;
     border-radius: 12px;
+    animation: show 2s ease;
     background: radial-gradient(ellipse at center, #7b1fa255 0%, rgba(0,0,0,0) 60%) no-repeat center bottom;
   }
   &__blur-background {
@@ -88,10 +89,15 @@
             display: flex;
             align-items: center;
             gap: 1px;
+            img {
+              height: 1rem;
+              width: 1rem;
+              margin-right: .2rem;
+            }
           }
         }
       }
-      .red-bg {
+      .primary-bg {
         background: #7b1fa2;
         color: white;
       }
@@ -149,16 +155,18 @@
     background: transparent;
     .center {
       width: 100%;
+    }
+    &__game {
       order: 3;
     }
     &__items {
       width: 100%;
       background: transparent;
       border: none;
-      padding: 0;
       gap: 0;
       justify-content: space-around;
       aspect-ratio: unset;
+      flex-wrap: wrap;
     }
     &__user-stats {
       justify-content: space-between;
@@ -168,6 +176,7 @@
     }
     &__game-history {
       min-height: 200px;
+      min-width: unset;
     }
   }
 

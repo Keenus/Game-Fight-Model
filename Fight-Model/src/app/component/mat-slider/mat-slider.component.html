@@ -1,9 +1,6 @@
 <div class="main-container">
-  <button class="main-container__start-button"  mat-icon-button (click)="makeAttack()" [disabled]="isButtonDisabled">
-    <i class="material-icons">
-      <span class="material-icons">&#xef55;</span>
-    </i>
-    <p [textContent]="gameStarted ? 'Attack' : 'Start'"></p>
+  <button class="main-container__start-button" [matTooltipShowDelay]="500" [matTooltip]="gameStarted ? 'Kliknij by zaatakować' : 'Kliknij by wykonać ruch'" mat-icon-button (click)="makeAttack()" [disabled]="isButtonDisabled">
+    <img src="assets/attack.png" alt="">
   </button>
   <div class="main-container__slider-container">
     <mat-slider

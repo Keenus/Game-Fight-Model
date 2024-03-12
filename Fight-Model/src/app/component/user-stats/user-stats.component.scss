@@ -4,6 +4,7 @@
   border-radius: 1rem;
   overflow: hidden;
   box-shadow: 0 0 5px 5px #0000003d;
+  min-width: 300px;
   &__picture {
     width: 100%;
     height: 300px;
@@ -19,11 +20,11 @@
       padding: 0 1rem;
       display: flex;
       align-items: center;
-      font-size: 1rem;
+      font-size: 1.3rem;
       gap: 0.5rem;
       img {
-        width: 1.5rem;
-        height: 1.5rem;
+        width: 1.3rem;
+        height: 1.3rem;
       }
     }
   }
@@ -51,4 +52,19 @@
       z-index: 3;
     }
   }
+}
+
+@media (max-width: 1200px) {
+  .stats {
+    display: flex;
+    position: relative;
+    width: 100%;
+    min-width: unset;
+    &__picture {
+      width: 200px;
+      height: auto;
+      border-radius: unset;
+    }
+  }
+
 }

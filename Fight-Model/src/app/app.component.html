@@ -9,19 +9,17 @@
       <div class="game-container__game-history">
         <h2 *ngIf="fightHistory.attackHistory.length > 0">Fight history</h2>
         <div #historyList class="game-history__list">
-          <div *ngFor="let attack of fightHistory.attackHistory" [ngClass]="{'red-bg' : attack.attackerID === 1}">
+          <div *ngFor="let attack of fightHistory.attackHistory" [ngClass]="{'primary-bg' : attack.attackerID === 1}">
             <small [textContent]="attack.attackerID === 0 ? 'User attack' : 'Enemy attack'"></small>
             <p>
-                <span>
-                  <i class="material-icons">
-                    <span class="material-icons" [textContent]="attack.attackerID === 0 ? '&#xe5c8;' : '&#xe5c4;'"></span>
-                  </i>
-                  {{attack.attackValue}}
-                </span>
-              <span>
-                  <span class="material-icons">&#xe87c;</span>
+              <span matTooltip="Demage">
+                <img src="assets/sword.png" alt="sword">
+                {{attack.attackValue}}
+              </span>
+              <span matTooltip="Health left">
+                <img src="assets/health.png" alt="health left">
                 {{attack.leaveHealth}}
-                </span>
+              </span>
             </p>
           </div>
         </div>

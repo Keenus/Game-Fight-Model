@@ -9,7 +9,7 @@ export class FightModel {
     {
       id: 0,
       picture: 'assets/Wizard.jpg',
-      name: 'Player',
+      name: 'Wizard',
       maxHealth: 500,
       stats: {
         strength: 10,
@@ -20,7 +20,7 @@ export class FightModel {
     {
       id: 1,
       picture: 'assets/Dwarf.jpg',
-      name: 'Opponent',
+      name: 'Dwarf',
       maxHealth: 500,
       stats: {
         strength: 10,
